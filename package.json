@@ -18,6 +18,7 @@
     "surrealdb.js": "^0.5.0"
   },
   "devDependencies": {
+    "@types/nunjucks": "^3.2.1",
     "tailwindcss": "^3.2.4"
   }
 }
