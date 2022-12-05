@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Todo App</title>
-	</head>
-	<body>
-		<h1>Todo Items</h1>
-		<button type="submit">Add ToDo</button>
-		<form action="/done" method="POST">
-			<input type="text" name="txt" id="123">
-			<button type="submit">Mark as Done</button>
-		</form>
-	</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto">
+	<h1 class="text-">Todo Items</h1>
+	<button class="" type="submit">Add ToDo</button>
+	<div>
+		<h2>Todo:</h2>
+		{% for todo in todos %}
+			<form class="flex my-1 rounded bg-gray-700 p-2 place-items-center" method="POST">
+				<button class="h-6 w-6 rounded border-2 border-transparent border-gray-900 bg-gray-800" type="submit"></button>
+				<span class="align-middle pl-1">{{ todo.text }}</span>
+				{# <input class="" type="hidden" name="{{ todo.id }}" /> #}
+				<button class="h-7 w-7 p-1 ml-auto rounded border-2 border-transparent border-gray-900 bg-gray-800" type="submit"><svg class="color-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></button>
+			</form>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

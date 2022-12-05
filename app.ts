@@ -1,4 +1,4 @@
-import Express from "express";
+import express from "express";
 import bodyParser from "body-parser";
 const nunjucks = require('nunjucks');
 
@@ -7,10 +7,12 @@ import db from "./database/surreal";
 
 initDB();
 
-const app = Express();
+const app = express();
 
 app.set('view engine', 'html');
 app.set('views', './views');
+
+app.use(express.static('./public'))
 
 nunjucks.configure('views', {
   autoescape: true,
@@ -18,8 +20,9 @@ nunjucks.configure('views', {
 });
 
 app.get('/', async (req, res) => {
-  const todos = await db.select("todo");
-  res.render('index', {todos: todos});
+  const done = (await db.query("SELECT * FROM todo WHERE isDone = true"))[0].result;
+  const todo = (await db.query("SELECT * FROM todo WHERE isDone = false"))[0].result;
+  res.render('index', {done: done, todos: todo});
 });
 
 app.post('/done', (req, res) => {
