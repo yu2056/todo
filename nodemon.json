@@ -6,11 +6,10 @@
     ],
     "verbose": true,
     "execMap": {
-      "js": "ts-node",
-      "ts": "node"
+      "ts": "ts-node"
     },
     "watch": [
-      "app.ts"
+      "."
     ],
     "env": {
       "NODE_ENV": "development"

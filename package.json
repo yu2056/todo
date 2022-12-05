@@ -5,8 +5,9 @@
   "main": "app.ts",
   "scripts": {
     "db": "surreal start --bind 127.0.0.1:8001 --log debug --user root --pass root file://\"./database/storage/\"",
-    "dev": "nodemon -e ts,json,html app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon",
+    "tailwind": "npx tailwindcss -i ./public/style.css -o ./public/tailwind.css --watch -m",
+    "livereload": "livereload . -w 1000 -d"
   },
   "author": "",
   "license": "ISC",
