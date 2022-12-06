@@ -6,11 +6,14 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'inner-all': 'inset 0 0 5px 2px rgb(0 0 0 / 0.05);',
+        'inner-all': 'inset 0 -1 3px 1px rgb(0 0 0 / 0.05);',
       },
+      colors: {
+        'gray-1000': '#0d121e'
+      }
     },
     fontFamily: {
-      'Kanit': ['Kanit']
+      'Inconsolata': ['Inconsolata']
     },
   },
   plugins: [
@@ -21,6 +24,10 @@ module.exports = {
         'h3': { fontSize: theme('fontSize.3xl') },
         'h4': { fontSize: theme('fontSize.2xl') },
         'h5': { fontSize: theme('fontSize.xl') },
+        'body': {
+          color: theme('textColor.black'),
+          fontSize: theme('fontSize.lg'),
+        },
       })
     })
   ],

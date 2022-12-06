@@ -1,19 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mx-auto">
-	<h1 class="text-">Todo Items</h1>
-	<button class="" type="submit">Add ToDo</button>
-	<div>
-		<h2>Todo:</h2>
-		{% for todo in todos %}
-			<form class="flex my-1 rounded bg-gray-700 p-2 place-items-center" method="POST">
-				<button class="h-6 w-6 rounded border-2 border-transparent border-gray-900 bg-gray-800" type="submit"></button>
-				<span class="align-middle pl-1">{{ todo.text }}</span>
-				{# <input class="" type="hidden" name="{{ todo.id }}" /> #}
-				<button class="h-7 w-7 p-1 ml-auto rounded border-2 border-transparent border-gray-900 bg-gray-800" type="submit"><svg class="color-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></button>
+	<div class="container mx-auto">
+		<div class="mb-4">
+			<h2 class="font-bold text-center text-gray-1000">To-Do App</h2>
+		</div>
+		<div>
+			<h3 class="p-0 m-0 inline-block align-bottom leading-none text-gray-1000">Todo:</h3>
+			<div class="bg-gray-900 w-full h-1 rounded-full"></div>
+			<form class="hover:shadow-xl hover:bottom-[1px] hover:relative flex mt-1 mb-2 rounded bg-gray-700 p-2 place-items-center" method="POST">
+				<span class="h-6 w-6 rounded shadow-inner-all shadow-gray-700 border-2 border-transparent border-gray-900 bg-gray-800 text-gray-700" content-center><i class='fa fa-plus h-full w-full flex place-content-center'></i></span>
+				<label class="align-middle mx-2 opacity-40 cursor-pointer w-full" onClick="edit(this.parentNode)">Add todo...</label>
+				<input name="text" type="text" class="input border rounded bg-inherit hidden w-full displa align-middle mx-2 p-1 opacity-40 cursor-pointer"></label>
+				<button class="button h-8 w-8 ml-auto hidden" name="create" type="submit"><i class="fa-solid fa-check text-gray-900 text-xl"></i></button>
 			</form>
-		{% endfor %}
+			{% for todo in todos %}
+				<form class="hover:shadow-xl hover:bottom-[1px] hover:relative flex my-1 rounded bg-gray-700 p-2 place-items-center" method="POST">
+					<button class="h-6 w-6 rounded shadow-inner-all shadow-gray-700 border-2 border-transparent border-gray-900 bg-gray-800 align-middle text-center" name="do" type="submit"></button>
+					<label class="align-middle pl-2">{{ todo.text }}</label>
+					<i class="pl-1 cursor-pointer fa-solid fa-pen-to-square image text-gray-900 text-xl" onClick="edit(this.parentNode)"></i>
+					<input class="" type="hidden" name="id" value="{{ todo.id }}"/>
+					<input name="text" type="text" class="input border rounded bg-inherit hidden w-full displa align-middle mx-2 p-1 opacity-40 cursor-pointer"></label>
+					<button class="button h-8 w-8 ml-auto hidden" name="edit" type="submit"><i class="fa-solid fa-check text-gray-900 text-xl"></i></button>
+					<button class="button2 h-8 w-8 ml-auto" name="delete" type="submit"><i class="fa-solid fa-trash text-gray-900 text-xl"></i></button>
+				</form>
+			{% endfor %}
+		</div>
+		<div>
+			<h3 class="mt-2 inline-block align-bottom leading-none text-gray-1000">Done:</h3>
+			<div class="bg-gray-900 w-full h-1 rounded-full"></div>
+			{% if done|length != 0 %}
+				{% for todo in done %}
+					<form class="hover:shadow-xl hover:bottom-[1px] hover:relative flex my-1 rounded bg-gray-700 p-2 place-items-center" method="POST">
+						<button class="h-6 w-6 rounded shadow-inner-all shadow-gray-700 border-2 border-transparent border-gray-900 bg-gray-800 align-middle text-center" name="undo" type="submit"><i class="fa-solid fa-check h-full w-full text-gray-700 text-xl flex place-items-center"></i></button>
+						<label class="align-middle pl-2">{{ todo.text }}</label>
+						<input class="" type="hidden" name="id" value="{{ todo.id }}"/>
+						<button class="h-8 w-8 ml-auto" name="delete" type="submit"><i class="fa-solid fa-trash text-gray-900 text-xl"></i></button>
+					</form>
+				{% endfor %}
+			{% else %}
+				<h5 class="mt-4 inline-block align-bottom leading-none text-gray-1000 text-center w-full">There is nothing here, you should do something :)</h3>
+			{% endif %}
+		</div>
 	</div>
-</div>
+	<script>
+		function edit(target) {
+			label = target.getElementsByTagName("label")[0];
+			input = target.getElementsByClassName("input")[0];
+			button = target.getElementsByClassName("button")[0];
+
+			image = target.getElementsByClassName("image")[0];
+			button2 = target.getElementsByClassName("button2")[0];
+
+			if(image != undefined){
+				image.style.display = 'none';
+			}
+			if(button2 != undefined){
+				button2.style.display = 'none';
+			}
+			input.value = label.innerText;
+			label.style.display = 'none';
+			input.style.display = 'inline';
+			button.style.display = 'inline';
+			input.selectionStart = input.selectionEnd = input.value.length;
+			input.focus();
+		}
+	</script>
 {% endblock %}

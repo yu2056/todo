@@ -1,6 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
-const nunjucks = require('nunjucks');
+import nunjucks from "nunjucks";
 
 import { initDB } from "./database/surreal";
 import db from "./database/surreal";
@@ -13,6 +12,7 @@ app.set('view engine', 'html');
 app.set('views', './views');
 
 app.use(express.static('./public'))
+app.use(express.urlencoded({ extended: true }));
 
 nunjucks.configure('views', {
   autoescape: true,
@@ -25,10 +25,54 @@ app.get('/', async (req, res) => {
   res.render('index', {done: done, todos: todo});
 });
 
-app.post('/done', (req, res) => {
-  console.log(req.body);
+app.get('/clear', async (req, res) => {
+  await db.delete("todo");
+  res.redirect("/");
+});
 
-  res.redirect("/")
+app.post('/', async (req, res) => {
+  const body = req.body;
+
+  if(body['create'] != undefined){
+    let text = "";
+    if(body['text'] != undefined){
+      text = body['text'];
+    }
+    await db.create("todo", {
+      text: text,
+      isDone: false
+    });
+  }
+
+  if(body['id'] == undefined){
+    res.redirect("/");
+    return
+  }
+  
+  if(body['do'] != undefined){
+    await db.change(body['id'], {
+      isDone: true
+    });
+  }
+  else if(body['undo'] != undefined){
+    await db.change(body['id'], {
+      isDone: false
+    });
+  }
+  else if(body['edit'] != undefined){
+    let text = "";
+    if(body['text'] != undefined){
+      text = body['text'];
+    }
+    await db.change(body['id'], {
+      text: text
+    });
+  }
+  else if(body['delete'] != undefined){
+    await db.delete(body['id']);
+  }
+
+  res.redirect("/");
 });
 
 app.listen(3000, () => {

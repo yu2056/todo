@@ -128,3 +128,4 @@ dist
 
 
 database/storage/
+public/tailwind.css
