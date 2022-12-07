@@ -12,14 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^4.17.14",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20",
     "nunjucks": "^3.2.3",
     "surrealdb.js": "^0.5.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.14",
     "@types/nunjucks": "^3.2.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.20",
     "tailwindcss": "^3.2.4"
   }
 }
