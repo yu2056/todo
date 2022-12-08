@@ -21,4 +21,4 @@ Windows:
 1. Tailwind - server updates tailwind.css  
 `npm run tailwind`
 1. LiveReload - reloads browser page for you  
-`npm run tailwind`
+`npm run livereload`
