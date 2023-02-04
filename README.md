@@ -10,7 +10,7 @@ Mac:
 `brew install surrealdb/tap/surreal`  
 Linux: 
 `curl -sSf https://install.surrealdb.com | sh`  
-Windows: 
+Windows(powershell): 
 `iwr https://windows.surrealdb.com -useb | iex`  
 4. Start database  
 `npm run db`
