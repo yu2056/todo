@@ -9,7 +9,7 @@ module.exports = {
         'inner-all': 'inset 0 -1 3px 1px rgb(0 0 0 / 0.05);',
       },
       colors: {
-        'gray-1000': '#0d121e'
+        'gray-1000': '#FFF'
       }
     },
     fontFamily: {
